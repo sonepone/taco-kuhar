@@ -27,14 +27,27 @@ public class JdbcIngredientRepository implements IngredientRepository  {
 
 	@Override
 	public Optional<Ingredient> findById(String id) {
+System.out.println("Usao u metodu");
 		List<Ingredient> results = jdbcTemplate.query("select id, name, type from Ingredient where id=?",
 				this::mapRowToIngredient, id);
+
+//		List<Ingredient> results = jdbcTemplate.query("select * from Person where id = ?",
+//				this::mapRowToIngredient, id);
+
 		return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
 	}
 
 	private Ingredient mapRowToIngredient(ResultSet row, int rowNum) throws SQLException {
 		return new Ingredient(row.getString("id"), row.getString("name"),
 				Ingredient.Type.valueOf(row.getString("type")));
+	}
+	
+
+	@Override
+	public Ingredient save(Ingredient ingredient) {
+		jdbcTemplate.update("insert into Ingredient (id, name, type) values (?, ?, ?)", ingredient.getId(),
+				ingredient.getName(), ingredient.getType().toString());
+		return ingredient;
 	}
 
 }	
