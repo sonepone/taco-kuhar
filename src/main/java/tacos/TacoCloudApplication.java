@@ -37,8 +37,10 @@ public class TacoCloudApplication {
 			}
 			System.out.println("#############################################################################");			
 			System.out.println("Parametri se setuju u 'Debug Configurations...' tj. u 'Run Configurations...'");
-			System.out.println("Aplikacije se moze pokrenuti sa:");
+			System.out.println("Aplikacije se moze pokrenuti sa komandne linije sa:");
 			System.out.println("$ mvn spring-boot:run -Dspring-boot.run.arguments=\"--arg1=value1 --arg2=value2 --version=1.0.0.4 --opcije=prva --opcije=druga\"");
+			System.out.println("ili");
+			System.out.println("$ java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar");
 			System.out.println("#############################################################################");
 
 //for(String element : args)

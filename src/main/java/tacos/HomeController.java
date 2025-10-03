@@ -59,7 +59,7 @@ public class HomeController {
 		tacoOrder.setPlacedAt(new Date());
 		
 		Taco taco1 = new Taco();
-		taco1.setName("Ponovo prvi");
+		taco1.setName("Novi taco - treci po redu");
 		taco1.setCreatedAt(new Date());
 		List<IngredientRef> lista = new ArrayList<IngredientRef>();
 		lista.add(new IngredientRef("COTO"));
@@ -69,7 +69,7 @@ public class HomeController {
 		taco1.setIngredients(lista);
 		
 		Taco taco2 = new Taco();
-		taco2.setName("Ponovo drugi");
+		taco2.setName("Ovo bi bio cetvrti");
 		taco2.setCreatedAt(new Date());
 		List<IngredientRef> lista2 = new ArrayList<IngredientRef>();
 		lista2.add(new IngredientRef("FLTO"));
