@@ -1,5 +1,8 @@
 package tacos;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import tacos.data.IngredientRepository;
+import tacos.data.JDBCDataIngredientRepository;
+import tacos.data.JDBCDataOrderRepository;
+import tacos.data.OrderRepository;
 
 //@Controller
 @RestController
@@ -19,8 +25,18 @@ import tacos.data.IngredientRepository;
 @Slf4j
 public class HomeController {
 
+//	@Autowired
+//	IngredientRepository ingredientRepository;
+//	
+//	@Autowired
+//	OrderRepository orderRepository;
+
 	@Autowired
-	IngredientRepository ingredientRepository;
+	JDBCDataIngredientRepository ingredientRepository;
+	
+	@Autowired
+	JDBCDataOrderRepository orderRepository;
+	
 	
 	
 	@GetMapping
@@ -30,6 +46,42 @@ public class HomeController {
 //		log.debug("Prije inserta");
 //		flourTortilla = ingredientRepository.save(flourTortilla);
 //		log.debug("Nakon inserta");
+		
+		TacoOrder tacoOrder = new TacoOrder();
+		tacoOrder.setDeliveryName("Nebojša");
+		tacoOrder.setDeliveryStreet("Kordunaska 16");
+		tacoOrder.setDeliveryCity("Banja Luka");
+		tacoOrder.setDeliveryState("RS");
+		tacoOrder.setDeliveryZip("78000");
+		tacoOrder.setCcCVV("778");
+		tacoOrder.setCcExpiration("07/28");
+		tacoOrder.setCcNumber("12345678901234");
+		tacoOrder.setPlacedAt(new Date());
+		
+		Taco taco1 = new Taco();
+		taco1.setName("Ponovo prvi");
+		taco1.setCreatedAt(new Date());
+		List<IngredientRef> lista = new ArrayList<IngredientRef>();
+		lista.add(new IngredientRef("COTO"));
+		lista.add(new IngredientRef("GRBF"));
+		lista.add(new IngredientRef("CHED"));
+		lista.add(new IngredientRef("TMTO"));
+		taco1.setIngredients(lista);
+		
+		Taco taco2 = new Taco();
+		taco2.setName("Ponovo drugi");
+		taco2.setCreatedAt(new Date());
+		List<IngredientRef> lista2 = new ArrayList<IngredientRef>();
+		lista2.add(new IngredientRef("FLTO"));
+		lista2.add(new IngredientRef("CARN"));
+		lista2.add(new IngredientRef("JACK"));
+		lista2.add(new IngredientRef("LETC"));
+		taco2.setIngredients(lista2);
+		
+		tacoOrder.addTaco(taco1);
+		tacoOrder.addTaco(taco2);
+		
+		orderRepository.save(tacoOrder);
 		
 
 		System.out.println("Pozivam metodu");
